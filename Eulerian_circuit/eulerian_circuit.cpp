@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  eulerian_circuit.cpp
 //  Eulerian_circuit
 //
 //  Created by Kyle Stumpff.
@@ -102,7 +102,7 @@ int findPath(int matrix[], int U[], int verticies, int startNode) {
             value = matrix[(verticies*startNode)+i];
             endNode = i;
         }
-            
+
     }
     return endNode;
 }
@@ -134,26 +134,26 @@ void findTour(int matrix[], int U[], int verticies) {
             startNode = endNode;
         }
     }
-    
+
     tour.addEdge(endNode, 0);
-    
+
     // print path
     tour.printList();
     // print remaining matrix
-    
+
     cout << "Remaining Matrix:\n\n";
     printMatrix(matrix, verticies, verticies*verticies);
 }
 
 int main()
 {
-    
+
     printStartScreen();
-    
+
     int verticies = 0;
     cout << "Enter number of vertices: ";
     cin >> verticies;
-    
+
     if (verticies < 2) {
         cout << "What in the I don't even! Invalid input...\n\n";
         return 0;
@@ -161,16 +161,16 @@ int main()
     int matrix_size = verticies*verticies;
     int *matrix = new int[matrix_size];
     int *U = new int[verticies];
-    
+
     // Initialize matrix to 0
     for (int i = 0 ; i < verticies ; i++) {
         matrix[i] = 0;
     }
-    
+
     int A = 0;
     int B = 0;
     int edge_num = 0;
-    
+
     cout << "Enter two numbers to create an edge between two vertices (0-" << verticies-1 << ")\n";
     cout << "Enter -1 to finish\n";
     while (true) {
@@ -188,31 +188,31 @@ int main()
             if (A >= 0 && A < verticies) {
                 if (B >= 0 && B < verticies) {
                     // Increment both values in adjacency matrix
-                    
+
                     // Increment A's B
                     matrix[(verticies*A)+B]++;
                     U[A]++;
                     // Increment B's A
                     matrix[(verticies*B)+A]++;
                     U[B]++;
-                    
+
                     edge_num++;
                 } else {cout << "Vertex 2 was invalid\n";}
             } else {cout << "Vertex 1 was invalid\n";}
         }
-        
+
         if (A == -1 && edge_num >= verticies) { break; }
     }
-    
+
     cout << "\nAdjacency Matrix:\n\n";
     printMatrix(matrix, verticies, verticies*verticies);
 
     cout << "Starting U[i]: ";
     printMatrix(U, verticies, verticies);
-    
+
     findTour(matrix, U, verticies);
     cout << "Ending U[i]: ";
     printMatrix(U, verticies, verticies);
-    
+
     return 0;
 }
