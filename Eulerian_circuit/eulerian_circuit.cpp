@@ -27,7 +27,12 @@ public:
         head=tail=NULL;
     }
     ~Tour() {
-        head=tail=NULL;
+        node *temp;
+        while(head != tail) {
+            temp = head->next;
+            delete head;
+            head = temp;
+        }
     }
     void addEdge(int A, int B) {
         if (head == NULL) {
